@@ -16,5 +16,7 @@ namespace TASK_9.Models
         [Required]
         public string Role { get; set; } = "User";
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        
+        public ICollection<UserNote> UserNotes { get; set; } = new List<UserNote>();
     }
 }
