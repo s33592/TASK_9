@@ -1,4 +1,5 @@
-﻿using TASK_9.Models;
+﻿using Microsoft.AspNetCore.Identity;
+using TASK_9.Models;
 using TASK_9.Repositories;
 using TASK_9.ViewModels;
 
@@ -33,6 +34,18 @@ namespace TASK_9.Services
             await _userRepository.AddUserAsync(user);
             await _userRepository.SaveChangesAsync();
             return true;
+        }
+
+        public async Task<AppUser?> AuthenticateUserAsync(LoginViewModel model)
+        {
+            var user = await _userRepository.GetUserByEmailAsync(model.Email);
+            
+            if (user == null) return null;
+            
+            var isPasswordValid = _passwordService.VerifyPassword(user, user.PasswordHash, model.Password);
+            
+            if(!isPasswordValid) return null;
+            return user;    
         }
     }
 }
