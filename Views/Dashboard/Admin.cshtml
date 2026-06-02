@@ -1,0 +1,39 @@
+﻿@using TASK_9.DTOs
+@model List<AppUserDto>
+@{
+    ViewData["Title"] = "Admin Dashboard";
+}
+
+<div class="text-center mt-4">
+    <h2 class="display-5 mb-4">App Users List:</h2>
+
+    @if (Model.Any())
+    {
+        <div class="table-responsive mx-auto" style="max-width: 800px;">
+            <table class="table table-bordered table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Email Address</th>
+                        <th>Number of Notes</th>
+                        <th>Creation Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var u in Model)
+                    {
+                        <tr>
+                            <td>@u.Email</td>
+                            <td>@u.NoteCount</td>
+                            <td>@u.CreatedAt.ToString("g")</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <p class="text-muted">No users in the system</p>
+    }
+
+</div>

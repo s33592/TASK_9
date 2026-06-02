@@ -1,0 +1,73 @@
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
+
+#nullable disable
+
+namespace TASK_9.Migrations
+{
+    /// <inheritdoc />
+    public partial class Create : Migration
+    {
+        /// <inheritdoc />
+        protected override void Up(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.CreateTable(
+                name: "AppUsers",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Role = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AppUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserNotes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Title = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Content = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    AppUserId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserNotes", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_UserNotes_AppUsers_AppUserId",
+                        column: x => x.AppUserId,
+                        principalTable: "AppUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "AppUsers",
+                columns: new[] { "Id", "CreatedAt", "Email", "PasswordHash", "Role" },
+                values: new object[] { 1, new DateTime(2026, 6, 2, 11, 23, 34, 408, DateTimeKind.Utc).AddTicks(6044), "admin@gmail.com", "AQAAAAIAAYagAAAAEH4CgbVjxcOYEaoAIiCQssTV+qc+QTLUoitESkG8+uK+N/3QNWL0biMRTW3SxM+Y2Q==", "Admin" });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserNotes_AppUserId",
+                table: "UserNotes",
+                column: "AppUserId");
+        }
+
+        /// <inheritdoc />
+        protected override void Down(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.DropTable(
+                name: "UserNotes");
+
+            migrationBuilder.DropTable(
+                name: "AppUsers");
+        }
+    }
+}

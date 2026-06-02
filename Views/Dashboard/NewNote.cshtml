@@ -1,0 +1,37 @@
+﻿@using TASK_9.ViewModels
+@model AddNoteViewModel
+@{
+    ViewData["Title"] = "New Note";
+}
+
+<div class="text-center mt-4">
+    <h2 class="display-5 mb-4">Add New Note</h2>
+
+    <form asp-controller="Dashboard" asp-action="NewNote" method="post" class="mx-auto text-start" style="max-width: 500px;">
+
+        <div class="mb-3">
+            <label asp-for="Title" class="form-label font-weight-bold">Title</label>
+            <input asp-for="Title" class="form-control" />
+            <span asp-validation-for="Title" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Content" class="form-label font-weight-bold">Content</label>
+            <textarea asp-for="Content" class="form-control" rows="5"></textarea>
+            <span asp-validation-for="Content" class="text-danger"></span>
+        </div>
+
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div class="d-flex gap-2 mt-4">
+            <button type="submit" class="btn btn-success flex-grow-1">Save Note</button>
+            <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

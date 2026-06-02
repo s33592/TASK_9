@@ -1,0 +1,20 @@
+﻿@{
+    ViewData["Title"] = "Access Denied";
+}
+
+<div class="text-center mt-5">
+    <div class="card mx-auto p-4 shadow-sm" style="max-width: 500px; border-top: 4px solid #dc3545;">
+        <h1 class="text-danger display-4 mb-3">
+            <i class="bi bi-shield-lock"></i> 403
+        </h1>
+        <h3 class="h4 mb-3 text-dark">Access Denied</h3>
+        <p class="text-muted small mb-4">
+            You do not have the required administrative permissions to view this secure system sector.
+        </p>
+        <div>
+            <a asp-controller="Account" asp-action="Login" class="btn btn-outline-danger btn-sm">
+                Log in with a different account
+            </a>
+        </div>
+    </div>
+</div>

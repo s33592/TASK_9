@@ -9,16 +9,18 @@ namespace TASK_9.Models
         public int Id { get; set; }
 
         [Required]
-        public int AppUserId { get; set; }
-
-        [Required]
+        [MaxLength(100)]
         public string Title { get; set; } = string.Empty;
 
+        [Required]
         public string Content { get; set; } = string.Empty;
 
         public DateTime CreatedAt { get; set; } = DateTime.Now;
 
-        [ForeignKey("AppUserId")]
+        [Required]
+        public int AppUserId { get; set; }
+
+        [ForeignKey(nameof(AppUserId))]
         public AppUser? AppUser { get; set; }
 
 

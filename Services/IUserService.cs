@@ -1,4 +1,5 @@
 ﻿using TASK_9.Models;
+using TASK_9.DTOs;
 using TASK_9.ViewModels;
 
 namespace TASK_9.Services
@@ -7,5 +8,7 @@ namespace TASK_9.Services
     {
         Task<bool> RegisterUserAsync(RegisterViewModel model);
         Task<AppUser?> AuthenticateUserAsync(LoginViewModel model);
+
+        Task<IEnumerable<AppUserDto>> GetAllUsersAsync();
     }
 }

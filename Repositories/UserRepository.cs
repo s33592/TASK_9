@@ -16,6 +16,12 @@ namespace TASK_9.Repositories
                 .FirstOrDefaultAsync(u => u.Email == email);
         }
 
+        public async Task<IEnumerable<AppUser>> GetAllUsersAsync()
+        {
+            return await _context.AppUsers
+                .Include(user => user.UserNotes)
+                .ToListAsync();
+        }
         public async Task AddUserAsync(AppUser user)
         {
             await _context.AppUsers.AddAsync(user);
